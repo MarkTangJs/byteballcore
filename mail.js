@@ -36,6 +36,8 @@ function sendMailThroughUnixSendmail(params, cb){
 }
 
 function sendMailDirectly(params, cb) {
+	cb('failed to send mail, disbaled featrue.')
+	/*
 	var nodemailer = require('node4mailer'+'');
 	var hostname = params.to.slice(params.to.indexOf("@")+1);
 	DNS.resolveMx(hostname, function(err, exchanges){
@@ -70,6 +72,7 @@ function sendMailDirectly(params, cb) {
 			cb(null, info);
 		});
 	});
+	*/
 }
 
 function sendMailThroughRelay(params, cb){
