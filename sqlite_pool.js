@@ -102,7 +102,7 @@ module.exports = function(db_name, MAX_CONNECTIONS, bReadOnly){
 				
 				// add callback with error handling
 				new_args.push(function(err, result){
-					console.log("LY_DEBUG ======= query done: \n"+sql, new_args[1]);
+					//console.log("LY_DEBUG ======= query done: \n"+sql, new_args[1]);
 					//console.log("query done: "+sql);
 					if (err){
 						console.error("\nfailed query:", new_args);
