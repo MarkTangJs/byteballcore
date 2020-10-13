@@ -652,13 +652,29 @@ function readDefinitionByAddress(conn, address, max_mci, callbacks){
 }
 
 // max_mci must be stable
-function readDefinitionAtMci(conn, definition_chash, max_mci, callbacks){
+function readDefinitionAtMci(conn, definition_chash, max_mci, callbacks) {
+	/*
 	var sql = "SELECT definition FROM definitions CROSS JOIN unit_authors USING(definition_chash) CROSS JOIN units USING(unit) \n\
 		WHERE definition_chash=? AND is_stable=1 AND sequence='good' AND main_chain_index<=?";
 	var params = [definition_chash, max_mci];
 	conn.query(sql, params, function(rows){
 		if (rows.length === 0)
 			return callbacks.ifDefinitionNotFound(definition_chash);
+		callbacks.ifFound(JSON.parse(rows[0].definition));
+	});
+	*/
+	var sql = "SELECT definition, is_stable, unit, main_chain_index FROM definitions CROSS JOIN unit_authors USING ( definition_chash ) CROSS JOIN units USING ( unit ) \n\
+		 WHERE definition_chash = ? AND sequence = 'good'"
+	var params = [definition_chash];
+	conn.query(sql, params, function(rows){
+		if (rows.length === 0)
+			return callbacks.ifDefinitionNotFound(definition_chash);
+		if (rows[0].unit == constants.BLACKBYTES_ASSET) {
+			return callbacks.ifFound(JSON.parse(rows[0].definition));
+		}
+		if (rows[0].is_stable != 1 || rows[0].main_chain_index <= max_mci) {
+			return callbacks.ifDefinitionNotFound(definition_chash);
+		}
 		callbacks.ifFound(JSON.parse(rows[0].definition));
 	});
 }

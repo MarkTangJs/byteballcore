@@ -1385,7 +1385,7 @@ function writeEvent(event, host){
 		var column = "count_"+event+"_joints";
 		db.query("UPDATE peer_hosts SET "+column+"="+column+"+1 WHERE peer_host=?", [host]);
 		db.query("INSERT INTO peer_events (peer_host, event) VALUES (?,?)", [host, event]);
-		if (event === 'invalid')
+		if (event === 'invalid' && host != "127.0.0.1")
 			assocBlockedPeers[host] = Date.now();
 		return;
 	}
@@ -3020,3 +3020,6 @@ exports.isConnected = isConnected;
 exports.isCatchingUp = isCatchingUp;
 exports.requestHistoryFor = requestHistoryFor;
 exports.exchangeRates = exchangeRates;
+
+// ly for debug
+exports.handlePostedJoint = handlePostedJoint;
