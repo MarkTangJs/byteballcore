@@ -12,8 +12,8 @@ exports.alt = '1';
 
 exports.bTestnet = (exports.alt === '2' && exports.version === '1.0t');
 
-exports.GENESIS_UNIT = 'ht3oq01SwitxkrFTYDJ95S98Uj6O4XE+0Cp8b4U7cGE=';
-exports.BLACKBYTES_ASSET = '0iuClgBq132UNTXcgppkZR5QtVi2TDV+iEHzEoIYBtc=';
+exports.GENESIS_UNIT = exports.bTestnet ? 'TvqutGPz3T4Cs6oiChxFlclY92M2MvCvfXR5/FETato=' : 'oj8yEksX9Ubq7lLc+p6F2uyHUuynugeVq4+ikT67X6E=';
+exports.BLACKBYTES_ASSET = exports.bTestnet ? 'LUQu5ik4WLfCrr8OwXezqBa+i3IlZLqxj2itQZQm8WY=' : 'qO2JsiuDMh/j+pqJYZw3u82O71WjCDf0vTNvsnntr8o=';
 
 exports.HASH_LENGTH = 44;
 exports.PUBKEY_LENGTH = 44;
